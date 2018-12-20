@@ -90,7 +90,7 @@ public class LanguageManager {
 		viewmanager.aboutdialog.setTitle(bundle.getString("aboutitem"));
 		viewmanager.aboutdialog.closebutton.setText(bundle.getString("closebutton"));
 		viewmanager.aboutdialog.area
-				.setText(bundle.getString("developer") + "\n\n https://github.com/Oliver-Stapelfeldt");
+				.setText(bundle.getString("developer") + "\n\n https://github.com/Oliver-Stapelfeldt/sudoku");
 
 		// Richtet ein DropDownMenü ein
 		String entries = bundle.getString("choosedifficulty");
