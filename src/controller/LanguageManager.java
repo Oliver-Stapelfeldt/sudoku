@@ -83,6 +83,12 @@ public class LanguageManager {
 		viewmanager.menubar.helpmenu.setText(bundle.getString("helpmenu"));
 		viewmanager.menubar.controlitem.setText(bundle.getString("controlitem"));
 		viewmanager.menubar.aboutitem.setText(bundle.getString("aboutitem"));
+		viewmanager.menubar.cellsizemenu.setText(bundle.getString("cellsizemenu"));
+		viewmanager.menubar.smallitem.setText(bundle.getString("smallitem"));
+		viewmanager.menubar.mediumitem.setText(bundle.getString("mediumitem"));
+		viewmanager.menubar.largeitem.setText(bundle.getString("largeitem"));
+		
+		// Richtet Dialoge ein
 		viewmanager.controldialog.setTitle(bundle.getString("controlitem"));
 		viewmanager.controldialog.navigatelabel.setText(bundle.getString("navigatedialog"));
 		viewmanager.controldialog.deletelabel.setText(bundle.getString("deletedialog"));

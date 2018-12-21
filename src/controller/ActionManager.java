@@ -13,7 +13,7 @@ import view.ViewManager;
 public class ActionManager {
 
 	public ActionManager(ViewManager viewmanager, FileManager filemanager, Generator generator, Solver solver,
-			LanguageManager languagemanager) {
+			LanguageManager languagemanager, CellSizer cellsizer) {
 
 		// Zuweisung der Buttons
 
@@ -41,7 +41,7 @@ public class ActionManager {
 			viewmanager.gamepanel
 					.setPlayGround(new PlayGround((Integer) viewmanager.optionspanel.choosesize.getSelectedItem()));
 			viewmanager.gamepanel.playground.addKeyListener(new KeyManager(viewmanager.gamepanel.playground, solver));
-			viewmanager.pack();
+			cellsizer.setCellSizes();
 		});
 
 		// Zuweisung der Menüitems
@@ -58,6 +58,11 @@ public class ActionManager {
 			symmetryitem.addActionListener(e -> {
 				viewmanager.menubar.selectItem(symmetryitem, viewmanager.menubar.symmetries);
 			});
+		
+		for (JRadioButtonMenuItem cellsizeitem : viewmanager.menubar.cellsizes)
+			cellsizeitem.addActionListener(e -> {
+				viewmanager.menubar.selectItem(cellsizeitem, viewmanager.menubar.cellsizes);
+				cellsizer.setCellSizes();});
 
 		viewmanager.menubar.quititem.addActionListener(e -> {
 			filemanager.quit(viewmanager);

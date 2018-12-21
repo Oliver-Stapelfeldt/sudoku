@@ -22,10 +22,10 @@ public class MenuBar extends JMenuBar {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public JMenu gamemenu, optionsmenu, languagemenu, symmetrymenu, helpmenu;
+	public JMenu gamemenu, optionsmenu, languagemenu, symmetrymenu, helpmenu, cellsizemenu;
 	public JMenuItem newgameitem, solveitem, resetitem, quititem, controlitem, aboutitem;
-	public JRadioButtonMenuItem englishitem, germanitem, symmetryon, symmetryoff;
-	public ArrayList<JRadioButtonMenuItem> languages, symmetries;
+	public JRadioButtonMenuItem englishitem, germanitem, symmetryon, symmetryoff, smallitem, mediumitem, largeitem;
+	public ArrayList<JRadioButtonMenuItem> languages, symmetries, cellsizes;
 	public Color background;
 
 	public MenuBar() {
@@ -37,6 +37,7 @@ public class MenuBar extends JMenuBar {
 		optionsmenu = new JMenu("options");
 		languagemenu = new JMenu();
 		symmetrymenu = new JMenu();
+		cellsizemenu = new JMenu();
 		helpmenu = new JMenu();
 
 		// Erzeugung der MenüItems
@@ -56,6 +57,13 @@ public class MenuBar extends JMenuBar {
 		symmetries = new ArrayList<JRadioButtonMenuItem>();
 		symmetries.add(symmetryon);
 		symmetries.add(symmetryoff);
+		smallitem = new JRadioButtonMenuItem();
+		mediumitem = new JRadioButtonMenuItem();
+		largeitem = new JRadioButtonMenuItem();
+		cellsizes = new ArrayList<JRadioButtonMenuItem>();
+		cellsizes.add(smallitem);
+		cellsizes.add(mediumitem);
+		cellsizes.add(largeitem);
 
 		// Verknüpfungen werden erzeugt
 		add(gamemenu);
@@ -69,6 +77,7 @@ public class MenuBar extends JMenuBar {
 
 		optionsmenu.add(languagemenu);
 		optionsmenu.add(symmetrymenu);
+		optionsmenu.add(cellsizemenu);
 
 		for (JRadioButtonMenuItem languageitem : languages) {
 			languagemenu.add(languageitem);
@@ -76,6 +85,10 @@ public class MenuBar extends JMenuBar {
 
 		for (JRadioButtonMenuItem symmetryitem : symmetries) {
 			symmetrymenu.add(symmetryitem);
+		}
+
+		for (JRadioButtonMenuItem sizeitem : cellsizes) {
+			cellsizemenu.add(sizeitem);
 		}
 
 		helpmenu.add(controlitem);
@@ -88,14 +101,17 @@ public class MenuBar extends JMenuBar {
 		optionsmenu.getPopupMenu().setBorder(null);
 		languagemenu.getPopupMenu().setBorder(null);
 		symmetrymenu.getPopupMenu().setBorder(null);
+		cellsizemenu.getPopupMenu().setBorder(null);
 		helpmenu.getPopupMenu().setBorder(null);
 		languagemenu.setOpaque(true);
 		symmetrymenu.setOpaque(true);
+		cellsizemenu.setOpaque(true);
 		setComponent(this, background);
 		setComponent(gamemenu, background);
 		setComponent(optionsmenu, background);
 		setComponent(languagemenu, background);
 		setComponent(symmetrymenu, background);
+		setComponent(cellsizemenu, background);
 		setComponent(newgameitem, background);
 		setComponent(solveitem, background);
 		setComponent(resetitem, background);
@@ -107,6 +123,9 @@ public class MenuBar extends JMenuBar {
 		setComponent(helpmenu, background);
 		setComponent(controlitem, background);
 		setComponent(aboutitem, background);
+		setComponent(smallitem, background);
+		setComponent(mediumitem, background);
+		setComponent(largeitem, background);
 	}
 
 	/**
@@ -124,6 +143,17 @@ public class MenuBar extends JMenuBar {
 	public int getSelectedSymmetry() {
 		for (int i = 0; i < symmetries.size(); i++) {
 			if (symmetries.get(i).isSelected())
+				return i;
+		}
+		return 0;
+	}
+
+	/**
+	 * Gibt die ausgewählte Symmetrie-Einstellung zurück
+	 */
+	public int getSelectedCellSize() {
+		for (int i = 0; i < cellsizes.size(); i++) {
+			if (cellsizes.get(i).isSelected())
 				return i;
 		}
 		return 0;

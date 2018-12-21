@@ -124,6 +124,7 @@ public class FileManager {
 			printer.println("difficulty=" + viewmanager.optionspanel.choosedifficulty.getSelectedIndex());
 			printer.println("language=" + languagemanager.getSelectedLanguage());
 			printer.println("symmetry=" + viewmanager.menubar.getSelectedSymmetry());
+			printer.println("cellsize=" + viewmanager.menubar.getSelectedCellSize());
 			printer.close();
 		} catch (Exception e) {
 			System.out.println("config.txt konnte nicht gespeichert werden.");
@@ -146,6 +147,7 @@ public class FileManager {
 				printer.println("difficulty=2");
 				printer.println("language=de");
 				printer.println("symmetry=1");
+				printer.println("cellsize=0");
 				printer.close();
 			}
 			FileReader fr = new FileReader(config.toString());
@@ -163,6 +165,7 @@ public class FileManager {
 					.setSelectedIndex(Integer.parseInt(prop.getProperty("difficulty")));
 			languagemanager.selectLanguage(new Locale(prop.getProperty("language")));
 			viewmanager.menubar.symmetries.get(Integer.parseInt(prop.getProperty("symmetry"))).setSelected(true);
+			viewmanager.menubar.cellsizes.get(Integer.parseInt(prop.getProperty("cellsize"))).setSelected(true);
 		} catch (Exception e) {
 			System.out.println("config.txt konnte nicht geladen werden.");
 		}

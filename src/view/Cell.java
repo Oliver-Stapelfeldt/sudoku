@@ -1,11 +1,8 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GraphicsEnvironment;
 import java.awt.GridBagLayout;
-import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -28,22 +25,17 @@ public class Cell extends JPanel {
 	private int row;
 	private int column;
 	private boolean fixed;
-	private Font fixedfont;
-	private Font writefont;
+	public Font fixedfont;
+	public Font writefont;
 
 	public Cell() {
 
 		// Erzeugung einiger Objekte und Einrichtung des Panels
 		setLayout(new GridBagLayout());
-		writefont = new Font(getWriteFont(), Font.BOLD, 20);
-		fixedfont = new Font("Arial", Font.BOLD, 20);
-		setPreferredSize(new Dimension(33, 33));
-		setMinimumSize(new Dimension(33, 33));
 		background = new Color(240, 240, 240);
 		setBackground(background);
 		setBorder(BorderFactory.createRaisedBevelBorder());
 		text = new JLabel();
-		text.setFont(writefont);
 		add(text);
 		fixed = false;
 	}
@@ -99,7 +91,10 @@ public class Cell extends JPanel {
 	public boolean isFixed() {
 		return fixed;
 	}
-
+	/**
+	 * setzt die Klassenvariable fixed und richtet die Font des Textes ein
+	 * @param fixed
+	 */
 	public void setFixed(boolean fixed) {
 		this.fixed = fixed;
 		if (fixed)
@@ -126,16 +121,4 @@ public class Cell extends JPanel {
 	public String toString() {
 		return getValue() + "";
 	}
-
-	private String getWriteFont() {
-		String[] favFonts = { "Ink Free", "Indie Flower", "Bradley Hand ITC", "Brush Script MT", "Segoe Script" };
-		String[] fontList = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-
-		for (String font : favFonts) {
-			if (Arrays.asList(fontList).contains(font))
-				return font;
-		}
-		return null;
-	}
-
 }
