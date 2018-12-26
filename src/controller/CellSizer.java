@@ -76,7 +76,8 @@ public class CellSizer {
 	}
 
 	private String getWriteFont() {
-		String[] favFonts = { "Ink Free", "Indie Flower", "Bradley Hand ITC", "Brush Script MT", "Segoe Script" };
+		String[] favFonts = { "Ink Free", "Indie Flower", "Bradley Hand", "Bradley Hand ITC", "Brush Script MT",
+				"Segoe Script" };
 		String[] fontList = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 
 		for (String font : favFonts) {

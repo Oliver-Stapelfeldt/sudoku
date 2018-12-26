@@ -39,8 +39,8 @@ public class WinEffect extends Thread {
 	}
 
 	public void run() {
-		Color[] colororder = { white, yellow, orange, red, lightpurple, darkpurple, blue, green, yellow, orange, red,
-				lightpurple, darkpurple, blue, green, yellow, orange, red, lightpurple, darkpurple, blue, green };
+		Color[] colororder = { white, white, yellow, orange, red, lightpurple, darkpurple, blue, green, yellow, orange,
+				red, lightpurple, darkpurple, blue, green, yellow, orange, red, lightpurple, darkpurple, blue, green };
 		runEffect(75, colororder, getCellGroups());
 	}
 
