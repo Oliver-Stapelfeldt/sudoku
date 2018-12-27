@@ -24,7 +24,7 @@ public class MenuBar extends JMenuBar {
 
 	public JMenu gamemenu, optionsmenu, languagemenu, symmetrymenu, helpmenu, cellsizemenu;
 	public JMenuItem newgameitem, solveitem, resetitem, quititem, controlitem, aboutitem;
-	public JRadioButtonMenuItem englishitem, germanitem, symmetryon, symmetryoff, smallitem, mediumitem, largeitem;
+	public JRadioButtonMenuItem englishitem, germanitem, persishitem, symmetryon, symmetryoff, smallitem, mediumitem, largeitem;
 	public ArrayList<JRadioButtonMenuItem> languages, symmetries, cellsizes;
 	public Color background;
 
@@ -49,9 +49,11 @@ public class MenuBar extends JMenuBar {
 		aboutitem = new JMenuItem();
 		englishitem = new JRadioButtonMenuItem();
 		germanitem = new JRadioButtonMenuItem();
+		persishitem = new JRadioButtonMenuItem();
 		languages = new ArrayList<JRadioButtonMenuItem>();
 		languages.add(germanitem);
 		languages.add(englishitem);
+		languages.add(persishitem);
 		symmetryon = new JRadioButtonMenuItem();
 		symmetryoff = new JRadioButtonMenuItem();
 		symmetries = new ArrayList<JRadioButtonMenuItem>();
@@ -118,6 +120,7 @@ public class MenuBar extends JMenuBar {
 		setComponent(quititem, background);
 		setComponent(englishitem, background);
 		setComponent(germanitem, background);
+		setComponent(persishitem, background);
 		setComponent(symmetryoff, background);
 		setComponent(symmetryon, background);
 		setComponent(helpmenu, background);

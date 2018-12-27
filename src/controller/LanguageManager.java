@@ -21,19 +21,33 @@ public class LanguageManager {
 		this.viewmanager = viewmanager;
 	}
 
+	/**
+	 * Wählt das entsprechende Menüitem aus.
+	 * 
+	 * @param loc
+	 */
 	public void selectLanguage(Locale loc) {
 		int index = 0;
 		if (loc.toString().equals("de"))
 			index = 0;
 		if (loc.toString().equals("en"))
 			index = 1;
+		if (loc.toString().equals("zh_cn"))
+			index = 2;
 
 		for (JRadioButtonMenuItem languageitem : viewmanager.menubar.languages) {
 			languageitem.setSelected(false);
 		}
+
 		viewmanager.menubar.languages.get(index).setSelected(true);
 	}
 
+	/**
+	 * Gibt die ausgewählte Sprache als Locale zurück. Für Persisch gibt es kein
+	 * Locale, daher habe ich einfach "PRC" genommen.
+	 * 
+	 * @return
+	 */
 	public Locale getSelectedLanguage() {
 		int index = 0;
 		for (int i = 0; i < viewmanager.menubar.languages.size(); i++) {
@@ -46,6 +60,9 @@ public class LanguageManager {
 			break;
 		case (1):
 			loc = Locale.ENGLISH;
+			break;
+		case (2):
+			loc = Locale.PRC;
 		}
 		return loc;
 	}
@@ -73,6 +90,7 @@ public class LanguageManager {
 		viewmanager.menubar.gamemenu.setText(bundle.getString("gamemenu"));
 		viewmanager.menubar.englishitem.setText(bundle.getString("englishitem"));
 		viewmanager.menubar.germanitem.setText(bundle.getString("germanitem"));
+		viewmanager.menubar.persishitem.setText(bundle.getString("persishitem"));
 		viewmanager.menubar.newgameitem.setText(bundle.getString("newgamebutton"));
 		viewmanager.menubar.resetitem.setText(bundle.getString("resetbutton"));
 		viewmanager.menubar.solveitem.setText(bundle.getString("solvebutton"));
@@ -87,7 +105,7 @@ public class LanguageManager {
 		viewmanager.menubar.smallitem.setText(bundle.getString("smallitem"));
 		viewmanager.menubar.mediumitem.setText(bundle.getString("mediumitem"));
 		viewmanager.menubar.largeitem.setText(bundle.getString("largeitem"));
-		
+
 		// Richtet Dialoge ein
 		viewmanager.controldialog.setTitle(bundle.getString("controlitem"));
 		viewmanager.controldialog.navigatelabel.setText(bundle.getString("navigatedialog"));
