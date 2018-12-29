@@ -27,26 +27,26 @@ public class Generator {
 	}
 
 	/**
-	 * Überprüft, ob ein Sudoku-Rätsel eine eindeutige Lösung besitzt. Es werden 13
-	 * Kopien erzeugt, gelöst und dann miteinander verglichen. Weitere Kopien werden
-	 * nur dann gelöst, falls vorige Kopien identische Lösungen besitzen. Es besteht
-	 * eine geringe Chance, dass die Lösung fälschlicherweise als eindeutig erkannt
-	 * wird.
+	 * Überprüft, ob ein Sudoku-Rätsel eine eindeutige Lösung besitzt. Es werden
+	 * Kopien erzeugt, gelöst und dann miteinander verglichen. Bei jeder Kopie
+	 * ändert sich die Reihenfolge, in der Zahlen beim Lösen durchprobiert werden.
+	 * Weitere Kopien werden nur dann gelöst, falls bereits gelöste Kopien
+	 * identische Lösungen besitzen, um die Laufzeit zu entlasten.
 	 */
 	public boolean hasUniqueSolution(PlayGround playground) {
 
-		int attempts = 13;
+		int attempts = playground.playsize;
 		PlayGround[] playgrounds = new PlayGround[attempts];
 		for (int i = 0; i < attempts; i++) {
 			playgrounds[i] = playground.createCopy();
 		}
 
-		solver.solve(playgrounds[0]);
+		solver.solve(playgrounds[0], 0);
 
 		boolean bool = true;
 		int index = 1;
 		while (bool == true && index < attempts) {
-			solver.solve(playgrounds[index]);
+			solver.solve(playgrounds[index], index);
 			if (playgrounds[0].isEqual(playgrounds[index]))
 				index++;
 			else {
@@ -78,7 +78,7 @@ public class Generator {
 	public void generatePuzzle(PlayGround playground, int difficulty, ProgressBar progressbar) {
 
 		// Spielfeld wird gefüllt
-		solver.solve(playground);
+		solver.solveRandomly(playground);
 
 		// Alle Eingabefelder werden in eine Liste gespeichert und die Reihenfolge
 		// geändert.
@@ -137,7 +137,7 @@ public class Generator {
 	public void generateSymmetricPuzzle(PlayGround playground, int difficulty, ProgressBar progressbar) {
 
 		// Spielfeld wird gefüllt
-		solver.solve(playground);
+		solver.solveRandomly(playground);
 
 		// Die Hälfe der Eingabefelder werden in eine Liste gespeichert und die
 		// Reihenfolge

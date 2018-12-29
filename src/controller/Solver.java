@@ -57,18 +57,26 @@ public class Solver {
 		array[index2] = temp;
 	}
 
-	public void shuffle(int[] array) {
+	private void shuffle(int[] array) {
 		for (int i = 0; i < array.length; i++) {
 			swap(array, i, random.nextInt(array.length));
 		}
 	}
 
+	private void permutate(int[] array, int times) {
+		for (int j = 0; j < times; j++)
+			for (int i = 0; i < array.length - 1; i++) {
+				swap(array, i, i + 1);
+			}
+	}
+
 	/**
 	 * Löst ein Sudoku-Rätsel mit dem Backtracking-Verfahren. Die Reihenfolge, in
-	 * der Zahlen ausprobiert werden ändert sich bei jedem rekursiven Aufruf, um
-	 * mehrere Lösungen erhalten zu können, falls diese nicht eindeutig ist.
+	 * der Zahlen ausprobiert werden ändert sich bei jedem rekursiven Aufruf
+	 * zufällig. Eignet sich gut, um zufällige Lösungen ,beim Generieren von
+	 * Rästeln, zu erstellen.
 	 */
-	public boolean solve(PlayGround playground) {
+	public boolean solveRandomly(PlayGround playground) {
 
 		// Alle freien Felder werden in eine Liste gespeichert
 		ArrayList<Cell> cells = new ArrayList<>();
@@ -91,7 +99,51 @@ public class Solver {
 				for (int number : order) {
 					if (isValidValue(playground, cell, number)) {
 						cell.setValue(number);
-						if (solve(playground)) {
+						if (solveRandomly(playground)) {
+							return true;
+						} else {
+							cell.setValue(EMPTY);
+						}
+					}
+				}
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Löst ein Sudoku-Rätsel mit dem Backtracking-Verfahren. Die Reihenfolge, in
+	 * der Zahlen ausprobiert werden, ist struktuiert und kann über einen Parameter
+	 * modifiziert werden. Über den Parameter wird gesteuert, welche Zahl zu erst
+	 * ausprobiert wird. Wird ein Rätsel mehrmals gelöst und jede Zahl einmal als
+	 * "ersten Versuch" verwendet, so hat das Rätsel meiner Ansicht nach nur eine
+	 * eindeutige Lösung, falls alle Lösungen identisch sind.
+	 */
+	public boolean solve(PlayGround playground, int permutatetimes) {
+
+		// Alle freien Felder werden in eine Liste gespeichert
+		ArrayList<Cell> cells = new ArrayList<>();
+
+		for (int i = 0; i < playground.playsize; i++) {
+			for (int j = 0; j < playground.playsize; j++) {
+				if (!playground.getMatrix()[i][j].isFixed())
+					cells.add(playground.getMatrix()[i][j]);
+			}
+		}
+
+		// Lösen des Spielfeldes
+		int[] order = new int[playground.getPlaysize()];
+		for (int i = 0; i < playground.getPlaysize(); i++) {
+			order[i] = i + 1;
+		}
+		permutate(order, permutatetimes);
+		for (Cell cell : cells) {
+			if (cell.getValue() == EMPTY) {
+				for (int number : order) {
+					if (isValidValue(playground, cell, number)) {
+						cell.setValue(number);
+						if (solve(playground, permutatetimes)) {
 							return true;
 						} else {
 							cell.setValue(EMPTY);

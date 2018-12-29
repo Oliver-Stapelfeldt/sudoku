@@ -29,7 +29,7 @@ public class ActionManager {
 		viewmanager.buttonpanel.solvebutton.addActionListener(e -> {
 
 			viewmanager.gamepanel.playground.reset();
-			solver.solve(viewmanager.gamepanel.playground);
+			solver.solveRandomly(viewmanager.gamepanel.playground);
 			viewmanager.gamepanel.playground.show();
 		});
 
@@ -76,7 +76,7 @@ public class ActionManager {
 		viewmanager.menubar.solveitem.addActionListener(e -> {
 
 			viewmanager.gamepanel.playground.reset();
-			solver.solve(viewmanager.gamepanel.playground);
+			solver.solveRandomly(viewmanager.gamepanel.playground);
 			viewmanager.gamepanel.playground.show();
 		});
 

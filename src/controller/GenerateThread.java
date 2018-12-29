@@ -44,6 +44,7 @@ public class GenerateThread extends Thread {
 		viewmanager.buttonpanel.solvebutton.setEnabled(false);
 		viewmanager.optionspanel.choosedifficulty.setEnabled(false);
 		viewmanager.optionspanel.choosesize.setEnabled(false);
+		viewmanager.menubar.gamemenu.setEnabled(false);
 	}
 	
 	private void enableButtons() {
@@ -52,6 +53,7 @@ public class GenerateThread extends Thread {
 		viewmanager.buttonpanel.solvebutton.setEnabled(true);
 		viewmanager.optionspanel.choosedifficulty.setEnabled(true);
 		viewmanager.optionspanel.choosesize.setEnabled(true);
+		viewmanager.menubar.gamemenu.setEnabled(true);
 	}
 	
 	private int difficultyIndextoValue() {
