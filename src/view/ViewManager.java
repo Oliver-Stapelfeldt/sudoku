@@ -24,7 +24,6 @@ public class ViewManager extends JFrame {
 	public ViewManager() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocation(400, 350);
 		setTitle("Sudoku");
 
 		// Initialisierung der Objekte
