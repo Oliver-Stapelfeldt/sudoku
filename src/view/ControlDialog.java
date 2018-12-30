@@ -34,7 +34,6 @@ public class ControlDialog extends JDialog {
 		closebutton.addActionListener(e -> setVisible(false));
 
 		// Einrichtung des Dialoges
-		setLocation(400, 450);
 		mainpanel.setLayout(new GridBagLayout());
 		mainpanel.setBackground(new Color(255, 160, 122));
 		add(mainpanel);

@@ -34,7 +34,8 @@ public class AboutDialog extends JDialog {
 		closebutton.addActionListener(e -> setVisible(false));
 
 		// Einrichtung des Dialoges
-		setBounds(400, 450, 270, 150);
+		setSize(270, 150);
+		setLocationRelativeTo(null);
 		this.add(area);
 		this.add(closebutton, BorderLayout.SOUTH);
 	}

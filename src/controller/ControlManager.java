@@ -37,6 +37,7 @@ public class ControlManager {
 		viewmanager.pack();
 		viewmanager.setLocationRelativeTo(null);
 		viewmanager.controldialog.pack();
+		viewmanager.controldialog.setLocationRelativeTo(null);
 	}
 
 }
