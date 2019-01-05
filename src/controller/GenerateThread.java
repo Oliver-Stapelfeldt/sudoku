@@ -2,6 +2,8 @@ package controller;
 
 
 
+import javax.swing.SwingUtilities;
+
 import view.ViewManager;
 
 /**
@@ -27,33 +29,45 @@ public class GenerateThread extends Thread {
 	 *  Erzeugt das Puzzle.
 	 */
 	public void run() {
-		viewmanager.gamepanel.progressbar.setVisible(true);
-		disableButtons();
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				viewmanager.gamepanel.progressbar.setVisible(true);
+				disableComponents();
+			}
+		});
 		generating = true;
 		if (viewmanager.menubar.symmetries.get(1).isSelected())
 		generator.generatePuzzle(viewmanager.gamepanel.playground, difficultyIndextoValue(), viewmanager.gamepanel.progressbar);
 		else generator.generateSymmetricPuzzle(viewmanager.gamepanel.playground, difficultyIndextoValue(), viewmanager.gamepanel.progressbar);
 		generating = false;
-		enableButtons();
-		viewmanager.gamepanel.progressbar.setVisible(false);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				enableComponents();
+				viewmanager.gamepanel.progressbar.setVisible(false);
+			}	
+		});
 	}
 	
-	private void disableButtons() {
+	private void disableComponents() {
 		viewmanager.buttonpanel.newgamebutton.setEnabled(false);
 		viewmanager.buttonpanel.resetbutton.setEnabled(false);
 		viewmanager.buttonpanel.solvebutton.setEnabled(false);
 		viewmanager.optionspanel.choosedifficulty.setEnabled(false);
 		viewmanager.optionspanel.choosesize.setEnabled(false);
 		viewmanager.menubar.gamemenu.setEnabled(false);
+		viewmanager.gamepanel.playground.setEnabled(false);
 	}
 	
-	private void enableButtons() {
+	private void enableComponents() {
 		viewmanager.buttonpanel.newgamebutton.setEnabled(true);
 		viewmanager.buttonpanel.resetbutton.setEnabled(true);
 		viewmanager.buttonpanel.solvebutton.setEnabled(true);
 		viewmanager.optionspanel.choosedifficulty.setEnabled(true);
 		viewmanager.optionspanel.choosesize.setEnabled(true);
 		viewmanager.menubar.gamemenu.setEnabled(true);
+		viewmanager.gamepanel.playground.setEnabled(true);
 	}
 	
 	private int difficultyIndextoValue() {

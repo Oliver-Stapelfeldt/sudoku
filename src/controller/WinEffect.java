@@ -2,6 +2,8 @@ package controller;
 
 import java.awt.Color;
 
+import javax.swing.SwingUtilities;
+
 import view.Cell;
 import view.PlayGround;
 
@@ -39,7 +41,7 @@ public class WinEffect extends Thread {
 	}
 
 	public void run() {
-		Color[] colororder = { white, white, white, yellow, orange, red, lightpurple, darkpurple, blue, green, yellow,
+		Color[] colororder = { white, yellow, orange, red, lightpurple, darkpurple, blue, green, yellow,
 				orange, red, lightpurple, darkpurple, blue, green, yellow, orange, red, lightpurple, darkpurple, blue,
 				green };
 		runEffect(75, colororder, getCellGroups());
@@ -54,10 +56,8 @@ public class WinEffect extends Thread {
 		for (int startindex = -colors.length; startindex < cellgroups.length; startindex++) {
 			int colorindex = 0;
 			for (int i = startindex; i < startindex + colors.length; i++) {
-
 				setColor(colors[colorindex], cellgroups, i);
 				colorindex++;
-
 			}
 			pause(millis);
 		}
@@ -78,7 +78,12 @@ public class WinEffect extends Thread {
 	private void setColor(Color color, Cell[][] cellgroups, int cellgroupindex) {
 		if (cellgroupindex >= 0 && cellgroupindex < cellgroups.length)
 			for (Cell cell : cellgroups[cellgroupindex])
-				cell.setBackground(color);
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						cell.setBackground(color);
+					}
+				});
 	}
 
 	/**

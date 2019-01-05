@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.SwingUtilities;
+
 import view.Cell;
 import view.PlayGround;
 import view.ProgressBar;
@@ -16,6 +18,7 @@ public class Generator {
 
 	private Random random;
 	private Solver solver;
+	private int progressvalue;
 	public static final int EMPTY = 0;
 	public static final int HARD = 0;
 	public static final int MEDIUM = 1;
@@ -102,7 +105,7 @@ public class Generator {
 
 		// Jede Zelle wird geleert. Falls das neu entstandene Rätsel keine eindeutige
 		// Lösung mehr besitzt, wird die Zahl wieder zurückgesetzt.
-		int progressvalue = 0;
+		progressvalue = 0;
 		ArrayList<Cell> emptycells = new ArrayList<Cell>();
 
 		for (Cell cell : cells) {
@@ -110,14 +113,24 @@ public class Generator {
 			if (!hasUniqueSolution(playground)) {
 				cell.setValue(valuematrix[cell.getRow()][cell.getColumn()]);
 				cell.setFixed(true);
-				cell.show();
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						cell.show();
+					}
+				});
 			} else {
 				emptycells.add(cell);
 			}
 
 			// Update des Fortschrittsbalkens nach jeder bearbeiteten Zelle
 			progressvalue++;
-			progressbar.setValue(progressvalue * 100 / cells.size());
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					progressbar.setValue(progressvalue * 100 / cells.size());
+				}
+			});
 		}
 
 		// Je nach Auswahl des Schwierigkeitsgrades werden geleerte Zellen wieder
@@ -125,10 +138,20 @@ public class Generator {
 		for (int i = emptycells.size() - difficulty * playground.playsize / 4; i < emptycells.size(); i++) {
 			Cell cell = emptycells.get(i);
 			cell.setValue(valuematrix[cell.getRow()][cell.getColumn()]);
-			cell.show();
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					cell.show();
+				}
+			});
 			cell.setFixed(true);
 		}
-		progressbar.setValue(0);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				progressbar.setValue(0);
+			}
+		});
 	}
 
 	/**
@@ -166,7 +189,7 @@ public class Generator {
 		// keine eindeutige
 		// Lösung mehr besitzt, wird die Zahl wieder zurückgesetzt, auch die
 		// gegenüberliegende Zelle wird sichtbar gemacht.
-		int progressvalue = 0;
+		progressvalue = 0;
 		ArrayList<Cell> emptycells = new ArrayList<Cell>();
 
 		for (Cell cell : cells) {
@@ -179,15 +202,25 @@ public class Generator {
 				cellacross.setValue(valuematrix[cellacross.getRow()][cellacross.getColumn()]);
 				cell.setFixed(true);
 				cellacross.setFixed(true);
-				cell.show();
-				cellacross.show();
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						cell.show();
+						cellacross.show();
+					}
+				});
 			} else {
 				emptycells.add(cell);
 			}
 
 			// Update des Fortschrittsbalkens nach jedem bearbeiteten Zellenpaar
 			progressvalue++;
-			progressbar.setValue(progressvalue * 100 / cells.size());
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					progressbar.setValue(progressvalue * 100 / cells.size());
+				}
+			});
 		}
 
 		// Je nach Auswahl des Schwierigkeitsgrades werden geleerte Zellen wieder
@@ -197,13 +230,22 @@ public class Generator {
 			Cell cellacross = matrix[playground.playsize - cell.getRow() - 1][playground.playsize - cell.getColumn()
 					- 1];
 			cell.setValue(valuematrix[cell.getRow()][cell.getColumn()]);
-			cell.show();
-			cell.setFixed(true);
 			cellacross.setValue(valuematrix[cellacross.getRow()][cellacross.getColumn()]);
-			cellacross.show();
+			cell.setFixed(true);
 			cellacross.setFixed(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					cell.show();
+					cellacross.show();
+				}
+			});
 		}
-		progressbar.setValue(0);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				progressbar.setValue(0);
+			}
+		});
 	}
-
 }
